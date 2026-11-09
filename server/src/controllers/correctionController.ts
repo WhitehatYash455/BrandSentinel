@@ -88,3 +88,4 @@ export function editSuggestion(req: AuthRequest, res: Response): void {
 
   res.json({ message: 'Suggestion updated with creator wording', id, customText });
 }
+

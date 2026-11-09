@@ -46,3 +46,4 @@ export async function uploadDocument(req: AuthRequest, res: Response): Promise<v
     res.status(500).json({ error: `Failed to process document: ${error.message}` });
   }
 }
+

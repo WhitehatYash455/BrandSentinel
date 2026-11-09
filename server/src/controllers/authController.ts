@@ -153,3 +153,4 @@ export function switchDemoRole(req: Request, res: Response): void {
     }
   });
 }
+

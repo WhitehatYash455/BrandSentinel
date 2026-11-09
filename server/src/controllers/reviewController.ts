@@ -236,3 +236,4 @@ export function escalateContent(req: AuthRequest, res: Response): void {
 
   res.json({ message: 'Content escalated to Brand Leadership', status: 'ESCALATED' });
 }
+

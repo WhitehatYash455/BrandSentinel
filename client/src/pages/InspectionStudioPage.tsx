@@ -644,3 +644,4 @@ export const InspectionStudioPage: React.FC = () => {
     </div>
   );
 };
+

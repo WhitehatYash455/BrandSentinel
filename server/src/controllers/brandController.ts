@@ -221,3 +221,4 @@ export function addBrandAsset(req: AuthRequest, res: Response): void {
 
   res.status(201).json({ message: 'Brand asset registered', id });
 }
+

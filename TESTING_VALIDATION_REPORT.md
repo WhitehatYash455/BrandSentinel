@@ -40,3 +40,4 @@ Run the automated integration test in the terminal:
 npm run test
 ```
 All 6 core end-to-end stages will execute sequentially and verify assertions.
+

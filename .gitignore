@@ -5,3 +5,4 @@ dist
 brand_sentinel.db*
 uploads/*
 !uploads/.gitkeep
+

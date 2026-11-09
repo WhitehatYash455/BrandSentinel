@@ -30,3 +30,4 @@ export function getAuditLogs(req: AuthRequest, res: Response): void {
   const logs = db.prepare(query).all(...params);
   res.json({ logs });
 }
+

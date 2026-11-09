@@ -295,3 +295,4 @@ CREATE INDEX IF NOT EXISTS idx_audit_logs_content ON audit_logs(content_id);
 CREATE INDEX IF NOT EXISTS idx_audit_logs_user ON audit_logs(user_id);
 CREATE INDEX IF NOT EXISTS idx_term_rules_brand ON terminology_rules(brand_id, is_active);
 CREATE INDEX IF NOT EXISTS idx_approved_facts_brand ON approved_facts(brand_id, status);
+

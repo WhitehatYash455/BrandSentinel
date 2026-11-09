@@ -671,3 +671,4 @@ export const KnowledgeManagementPage: React.FC = () => {
     </div>
   );
 };
+

@@ -194,3 +194,4 @@ export function retrieveRelevantKnowledge(
   items.sort((a, b) => b.score - a.score);
   return items.slice(0, topK);
 }
+

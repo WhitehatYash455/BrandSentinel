@@ -272,6 +272,54 @@ export const CreatorWorkspacePage: React.FC = () => {
                   {isUploading ? 'Extracting...' : uploadedFileName ? 'Replace File' : 'Browse File'}
                 </button>
               </div>
+
+              {/* Quick Sample Demonstrator Buttons */}
+              <div className="mt-3 pt-3 border-t border-slate-200/80 flex flex-wrap items-center gap-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  Test Samples:
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTitle('Operation Shield Launch: Revolutionary Unhackable Cloud Security Release');
+                    setChannel('PRESS_RELEASE');
+                    setContentType('PRESS_RELEASE');
+                    setBodyText('VajraAI is proud to announce our revolutionary new cloud governance platform that delivers a guaranteed 100% uptime with magic-like automated precision.\n\nOur foolproof technology is completely unhackable, making all other legacy vendors look like cheap dinosaurs. With our 100% compliance guarantee, your legal team can sleep soundly while our algorithms eliminate 100% of risk without human review.\n\nWe are serving over 10,000 enterprise customers across the world today with flawless performance.');
+                    setStatusMessage('Loaded uncompliant press release test sample (13 violations)');
+                  }}
+                  className="px-2 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-semibold hover:bg-rose-100"
+                >
+                  Load Uncompliant Draft (13 Violations)
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTitle('Leadership Blog: Unverified Metric Claims');
+                    setChannel('WEBSITE');
+                    setContentType('MARKETING_BLOG');
+                    setBodyText('In modern multi-channel marketing, inconsistencies compound quickly.\n\nVajra Sentinel was recently awarded the 2026 World AI Breakthrough Trophy for cutting deployment risk by 97.4% across 80,000 global servers. Furthermore, our proprietary quantum algorithms guarantee complete immunity from regulatory penalties.\n\nWhile legacy tools struggle with manual compliance, our autonomous pipeline replaces compliance departments completely.');
+                    setStatusMessage('Loaded unverified metric claims sample (Guideline Gaps)');
+                  }}
+                  className="px-2 py-1 rounded bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-semibold hover:bg-amber-100"
+                >
+                  Load Unverified Claims Sample
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setTitle('LinkedIn Leadership: Verified Continuous Brand Governance');
+                    setChannel('LINKEDIN');
+                    setContentType('SOCIAL_COPY');
+                    setBodyText('Modern enterprise governance requires empirical rigor. Vajra Sentinel empowers marketing teams to accelerate pre-publication reviews by up to 64%*, while retaining full human stewardship over critical releases.\n\nBacked by our verified SOC 2 Type II compliance and 99.99% high-availability SLA, organizations safeguard brand equity across every channel. Over 2,500 enterprise organizations trust our solution today.\n\n*Based on an internal 90-day benchmark of 14,000 reviewed marketing assets compared to manual email approval loops.');
+                    setStatusMessage('Loaded compliant marketing post sample (Pass 100/100)');
+                  }}
+                  className="px-2 py-1 rounded bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold hover:bg-emerald-100"
+                >
+                  Load Compliant Post (Pass 100/100)
+                </button>
+              </div>
             </div>
 
             {/* Content Body Editor */}
@@ -396,3 +444,4 @@ export const CreatorWorkspacePage: React.FC = () => {
     </div>
   );
 };
+

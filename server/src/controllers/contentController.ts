@@ -260,3 +260,4 @@ export function submitForReview(req: AuthRequest, res: Response): void {
 
   res.json({ message: 'Content submitted for human reviewer approval', status: 'IN_REVIEW' });
 }
+

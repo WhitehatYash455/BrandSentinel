@@ -118,3 +118,4 @@ export function getOverviewAnalytics(req: AuthRequest, res: Response): void {
     recentSubmissions
   });
 }
+

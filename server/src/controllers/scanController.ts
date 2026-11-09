@@ -79,3 +79,4 @@ export function getScanDetail(req: AuthRequest, res: Response): void {
 
   res.json({ scan, findings });
 }
+

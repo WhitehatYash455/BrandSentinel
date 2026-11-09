@@ -84,3 +84,4 @@ router.get('/analytics/overview', authenticate, analyticsCtrl.getOverviewAnalyti
 router.get('/audit-logs', authenticate, auditCtrl.getAuditLogs);
 
 export default router;
+

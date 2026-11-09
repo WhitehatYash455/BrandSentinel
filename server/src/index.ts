@@ -10,3 +10,4 @@ app.listen(PORT, () => {
   console.log(`[Brand Sentinel] API Server running on port ${PORT}`);
   console.log(`[Brand Sentinel] Health endpoint: http://localhost:${PORT}/api/health`);
 });
+
