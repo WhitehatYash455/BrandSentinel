@@ -3,7 +3,7 @@ services:
     name: brand-sentinel
     env: node
     plan: free
-    buildCommand: npm install && npm run build && npm run seed
+    buildCommand: npm install --include=dev && npm run build && npm run seed
     startCommand: npm start
     envVars:
       - key: NODE_ENV
