@@ -3,3 +3,4 @@ Modern enterprise governance requires empirical rigor. Vajra Sentinel empowers m
 Backed by our verified SOC 2 Type II compliance and 99.99% high-availability SLA, organizations safeguard brand equity across every channel. Over 2,500 enterprise organizations trust our solution today.
 
 *Based on an internal 90-day benchmark of 14,000 reviewed marketing assets compared to manual email approval loops.
+

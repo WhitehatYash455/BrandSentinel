@@ -4,6 +4,8 @@ import api from '../api/client';
 import { StatusBadge } from '../components/StatusBadge';
 import { SeverityBadge } from '../components/SeverityBadge';
 import { Modal } from '../components/Modal';
+import { DiffViewer } from '../components/DiffViewer';
+import { ClearanceCertificate } from '../components/ClearanceCertificate';
 import {
   ShieldAlert,
   CheckCircle,
@@ -15,7 +17,9 @@ import {
   FileCheck2,
   Sparkles,
   Info,
-  Check
+  Check,
+  GitCompare,
+  Award
 } from 'lucide-react';
 import { Finding, Submission, ContentVersion } from '../types';
 
@@ -28,6 +32,10 @@ export const InspectionStudioPage: React.FC = () => {
   const [selectedVersion, setSelectedVersion] = useState<number>(1);
   const [findings, setFindings] = useState<Finding[]>([]);
   const [activeFinding, setActiveFinding] = useState<Finding | null>(null);
+
+  // View mode: 'INSPECT' or 'DIFF'
+  const [viewMode, setViewMode] = useState<'INSPECT' | 'DIFF'>('INSPECT');
+  const [isCertificateOpen, setIsCertificateOpen] = useState(false);
 
   // Filter state
   const [severityFilter, setSeverityFilter] = useState<string>('ALL');
@@ -238,6 +246,32 @@ export const InspectionStudioPage: React.FC = () => {
             </select>
           </div>
 
+          {versions.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setViewMode(viewMode === 'INSPECT' ? 'DIFF' : 'INSPECT')}
+              className={`inline-flex items-center px-3.5 py-2 rounded-lg text-xs font-semibold border transition-all ${
+                viewMode === 'DIFF'
+                  ? 'bg-brand-50 border-brand-500 text-brand-700'
+                  : 'bg-white border-slate-300 text-slate-700 hover:bg-slate-50'
+              }`}
+            >
+              <GitCompare className="w-3.5 h-3.5 mr-1.5 text-brand-600" />
+              {viewMode === 'DIFF' ? 'Show Content' : 'Compare Revisions'}
+            </button>
+          )}
+
+          {submission.current_status === 'APPROVED' && (
+            <button
+              type="button"
+              onClick={() => setIsCertificateOpen(true)}
+              className="inline-flex items-center px-4 py-2 rounded-lg bg-emerald-600 text-white text-xs font-bold hover:bg-emerald-500 shadow-md shadow-emerald-500/20"
+            >
+              <Award className="w-3.5 h-3.5 mr-1.5" />
+              View Clearance Certificate
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => setIsResubmitModalOpen(true)}
@@ -307,44 +341,55 @@ export const InspectionStudioPage: React.FC = () => {
 
       {/* Main Studio: Split View (Content vs Findings & Evidence) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column: Submitted Text with Highlights (7 cols) */}
-        <div className="lg:col-span-7 bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
-          <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
-            <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Submitted Content (v{selectedVersion})
-            </h2>
-            <span className="text-xs text-slate-400">Click any highlighted text to inspect evidence</span>
-          </div>
+        {/* Left Column: Submitted Text with Highlights or Diff Viewer (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          {viewMode === 'DIFF' ? (
+            <DiffViewer
+              oldText={versions[versions.length - 1]?.body_text || ''}
+              newText={bodyText}
+              oldVersionNum={versions[versions.length - 1]?.version_number || 1}
+              newVersionNum={selectedVersion}
+            />
+          ) : (
+            <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+              <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+                <h2 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  Submitted Content (v{selectedVersion})
+                </h2>
+                <span className="text-xs text-slate-400">Click any highlighted text to inspect evidence</span>
+              </div>
 
-          <div className="p-6">
-            <div className="prose prose-slate max-w-none text-sm text-slate-800 leading-relaxed font-sans whitespace-pre-wrap">
-              {/* Highlight rendered content */}
-              {bodyText.split(/\b/).map((chunk, i) => {
-                const matchFinding = findings.find(
-                  (f) => f.problematic_text.toLowerCase() === chunk.toLowerCase()
-                );
-                if (matchFinding) {
-                  const isActive = activeFinding?.id === matchFinding.id;
-                  let highlightClass = 'highlight-medium';
-                  if (matchFinding.severity === 'CRITICAL') highlightClass = 'highlight-critical';
-                  else if (matchFinding.severity === 'HIGH') highlightClass = 'highlight-high';
-                  else if (matchFinding.severity === 'LOW') highlightClass = 'highlight-low';
+              <div className="p-6">
+                <div className="prose prose-slate max-w-none text-sm text-slate-800 leading-relaxed font-sans whitespace-pre-wrap">
+                  {/* Highlight rendered content */}
+                  {bodyText.split(/\b/).map((chunk, i) => {
+                    const matchFinding = findings.find(
+                      (f) => f.problematic_text.toLowerCase() === chunk.toLowerCase()
+                    );
+                    if (matchFinding) {
+                      const isActive = activeFinding?.id === matchFinding.id;
+                      let highlightClass = 'highlight-medium';
+                      if (matchFinding.severity === 'CRITICAL') highlightClass = 'highlight-critical';
+                      else if (matchFinding.severity === 'HIGH') highlightClass = 'highlight-high';
+                      else if (matchFinding.severity === 'LOW') highlightClass = 'highlight-low';
 
-                  return (
-                    <span
-                      key={i}
-                      onClick={() => setActiveFinding(matchFinding)}
-                      className={`${highlightClass} ${isActive ? 'highlight-active font-bold' : ''}`}
-                      title={`${matchFinding.category}: ${matchFinding.explanation}`}
-                    >
-                      {chunk}
-                    </span>
-                  );
-                }
-                return <span key={i}>{chunk}</span>;
-              })}
+                      return (
+                        <span
+                          key={i}
+                          onClick={() => setActiveFinding(matchFinding)}
+                          className={`${highlightClass} ${isActive ? 'highlight-active font-bold' : ''}`}
+                          title={`${matchFinding.category}: ${matchFinding.explanation}`}
+                        >
+                          {chunk}
+                        </span>
+                      );
+                    }
+                    return <span key={i}>{chunk}</span>;
+                  })}
+                </div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         {/* Right Column: AI Findings, Evidence Grounding & Correction Actions (5 cols) */}
@@ -641,6 +686,16 @@ export const InspectionStudioPage: React.FC = () => {
           </div>
         </div>
       </Modal>
+
+      {/* Clearance Certificate Modal */}
+      {submission && currentVersionData && (
+        <ClearanceCertificate
+          isOpen={isCertificateOpen}
+          onClose={() => setIsCertificateOpen(false)}
+          submission={submission}
+          version={currentVersionData}
+        />
+      )}
     </div>
   );
 };
