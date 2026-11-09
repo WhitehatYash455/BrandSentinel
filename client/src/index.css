@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased font-sans selection:bg-brand-500 selection:text-white;
+  }
+}
+
+/* Custom highlight styling for problematic spans */
+.highlight-critical {
+  @apply bg-rose-100 text-rose-900 border-b-2 border-rose-500 px-1 py-0.5 rounded cursor-pointer transition-colors duration-150 hover:bg-rose-200;
+}
+
+.highlight-high {
+  @apply bg-amber-100 text-amber-900 border-b-2 border-amber-500 px-1 py-0.5 rounded cursor-pointer transition-colors duration-150 hover:bg-amber-200;
+}
+
+.highlight-medium {
+  @apply bg-yellow-100 text-yellow-900 border-b-2 border-yellow-500 px-1 py-0.5 rounded cursor-pointer transition-colors duration-150 hover:bg-yellow-200;
+}
+
+.highlight-low {
+  @apply bg-blue-100 text-blue-900 border-b-2 border-blue-400 px-1 py-0.5 rounded cursor-pointer transition-colors duration-150 hover:bg-blue-200;
+}
+
+.highlight-active {
+  @apply ring-2 ring-brand-600 ring-offset-1;
+}

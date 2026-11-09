@@ -1,0 +1,7 @@
+node_modules
+dist
+.env
+*.log
+brand_sentinel.db*
+uploads/*
+!uploads/.gitkeep
