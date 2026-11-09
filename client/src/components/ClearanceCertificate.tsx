@@ -147,3 +147,4 @@ export const ClearanceCertificate: React.FC<ClearanceCertificateProps> = ({
     </Modal>
   );
 };
+
