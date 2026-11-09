@@ -40,3 +40,4 @@ COPY --from=builder /app/brand_sentinel.db ./brand_sentinel.db
 EXPOSE 5000
 
 CMD ["node", "server/dist/index.js"]
+
